@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="secreto.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>aplicacion del clima</h1>
+
+        <form action="" id="formulario">
+            <label for="clima">ingrese la hubicacion para saber el clima</label>
+            <input name="clima" type="text" id="ciudad">
+            <button name="clima" type="submit">enviar</button>
+        </form>
+    </div>
+    <div id="informacion">
+
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#formulario").on("submit",function(ev){
+                ev.preventDefault();
+                let ciudad = $("#ciudad").val();
+                let url =`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${api_key}`;
+                $.get(url,function(data){
+                    console.log(data)
+                    $("#informacion").append(`<h3> el clima está: ${data.weather[0].main}`)
+                    $("#informacion").append(`<h3> temperatura : ${(data.main.feels_like)-273.15} °C`)
+                    $("#informacion").append(`<h3> coordenadas : latitud:${data.coord.lat} longitud: ${data.coord.lon}`)
+                   
+                })
+                
+            })
+
+        })
+    </script>
+    
+</body>
+</html>
